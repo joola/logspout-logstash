@@ -57,20 +57,20 @@ func (a *LogstashAdapter) Stream(logstream chan *router.Message) {
 				Stream:  m.Source,
 			}
 			if js, err = json.Marshal(msg); err != nil {
-				log.Println("logstash:", err)
+				log.Println("logstash [1]:", err)
 				continue
 			}
 		} else {
 			// The message is already in JSON, add the docker specific fields.
 			data["docker"] = dockerInfo
 			if js, err = json.Marshal(data); err != nil {
-				log.Println("logstash:", err)
+				log.Println("logstash [2]:", err)
 				continue
 			}
 		}
 
 		if _, err := a.conn.Write(js); err != nil {
-			log.Fatal("logstash:", err)
+			log.Println("logstash [3]:", err)
 			continue
 		}
 	}
