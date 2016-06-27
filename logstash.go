@@ -71,6 +71,7 @@ func (a *LogstashAdapter) Stream(logstream chan *router.Message) {
 
 		if _, err := a.conn.Write(js); err != nil {
 			log.Fatal("logstash:", err)
+			continue
 		}
 	}
 }
